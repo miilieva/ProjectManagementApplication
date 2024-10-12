@@ -1,0 +1,92 @@
+﻿@model ProjectManagement_Mirela.Dto.Project.ProjectDto
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h2 class="text-center mb-4">Create New Project</h2>
+
+            <form id="create-project-form" asp-action="Create" method="post">
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Project Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter project name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter project description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StartDate" class="form-label">Start Date</label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EndDate" class="form-label">End Date</label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TeamId" class="form-label">Team ID</label>
+                    <input asp-for="TeamId" class="form-control" placeholder="Enter team ID" />
+                    <span asp-validation-for="TeamId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="/Manager/options" class="btn btn-secondary">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.getElementById('create-project-form').addEventListener('submit', async function (event) {
+            event.preventDefault(); 
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const jsonData = {};
+
+            formData.forEach((value, key) => { jsonData[key] = value });
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jsonData),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        alert(data.message); 
+                        window.location.replace('/Manager/view-projects');
+                    } else {
+                        alert('An error occurred: ' + data.message);
+                    }
+                } else {
+                    const text = await response.text();
+                    throw new Error(text);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred: ' + error.message);
+            }
+        });
+    </script>
+}

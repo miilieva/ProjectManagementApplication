@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ProjectManagement_Mirela.Models.Comment>
+
+@{
+    ViewData["Title"] = "Project Comments";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Project Comments</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Comment ID</th>
+                    <th>Content</th>
+                    <th>Author</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comment in Model)
+                {
+                    <tr>
+                        <td>@comment.CommentId</td>
+                        <td>@Html.Raw(comment.Content)</td>
+                        <td>@comment.Employee?.UserName ?? "Unknown"</td>
+                        <td>@comment.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4">
+        <a href="javascript:history.back()" class="btn btn-secondary btn-lg">Back</a>
+    </div>
+</div>

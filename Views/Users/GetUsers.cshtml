@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProjectManagement_Mirela.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employee List";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Employees</h2>
+
+    <!-- Table to display employees -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Username</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center" style="width: 20%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td class="text-center">@user.UserName</td>
+                        <td class="text-center">@user.Email</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <button class="btn btn-danger btn-sm" onclick="deleteEmployee('@user.Id')">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Buttons below the table -->
+    <div class="d-flex justify-content-between mt-3">
+        <a href="@Url.Action("Register", "Account")" class="btn btn-success">Add New Employee</a>
+        <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        async function deleteEmployee(employeeId) {
+            if (!confirm('Are you sure you want to delete this employee?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/Users/delete/${employeeId}`, {
+                    method: 'POST'
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Employee was successfully deleted.');
+                    window.location.reload(); // Refresh the page after successful deletion
+                } else {
+                    alert('Failed to delete the employee.');
+                }
+            } catch (error) {
+                console.error('Error deleting the employee:', error);
+                alert('Error deleting the employee.');
+            }
+        }
+    </script>
+}

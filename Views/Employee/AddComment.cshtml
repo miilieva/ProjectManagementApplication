@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Add Comment";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Add Comment</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="add-comment-form">
+                <div class="form-group">
+                    <label for="project-id">Project ID</label>
+                    <input type="number" id="project-id" class="form-control" placeholder="Enter project ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="comment-content">Comment</label>
+                    <textarea id="comment-content" class="form-control" rows="3" placeholder="Enter your comment" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add Comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addCommentForm = document.getElementById('add-comment-form');
+
+            addCommentForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const projectId = document.getElementById('project-id').value.trim();
+                const content = document.getElementById('comment-content').value.trim();
+
+                if (!projectId || !content) {
+                    alert('Please fill out all fields.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/Employee/add-comment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ projectId, content })
+                    });
+
+                    if (response.ok) {
+                        const comment = await response.json();
+                        console.log('Comment added:', comment);
+                        alert('Comment added successfully!');
+                        addCommentForm.reset(); 
+                    } else {
+                        const error = await response.text();
+                        console.error('Failed to add comment:', error);
+                        alert(`Failed to add comment: ${error}`);
+                    }
+                } catch (error) {
+                    console.error('Error adding comment:', error);
+                    alert('An error occurred while adding the comment.');
+                }
+            });
+        });
+    </script>
+}

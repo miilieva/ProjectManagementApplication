@@ -1,0 +1,99 @@
+﻿@model ProjectManagement_Mirela.Dto.Team.EditTeamDto
+
+@{
+    ViewData["Title"] = "Edit Team";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit Team - @Model.Name</h2>
+
+    <form id="editTeamForm" method="post" asp-action="EditTeam">
+        <input type="hidden" id="teamId" name="TeamId" value="@Model.TeamId" />
+
+        <div class="form-group">
+            <label asp-for="Name">Team Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter team name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <h4 class="mt-4">Assign Users to Team</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="availableUsers">Available Users</label>
+                    <select id="availableUsers" class="form-control" multiple size="10">
+                        @foreach (var user in Model.AvailableUsers)
+                        {
+                            <option value="@user">@user</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex flex-column justify-content-center">
+                <button type="button" id="addUser" class="btn btn-primary mb-2">Add User to Team</button>
+                <button type="button" id="removeUser" class="btn btn-danger mb-2">Remove User from Team</button>
+            </div>
+
+            <div class="col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="teamUsers">Team Members</label>
+                    <select id="teamUsers" class="form-control" multiple size="10">
+                        @foreach (var user in Model.Usernames)
+                        {
+                            <option value="@user.Username">@user.Username</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <a asp-action="GetTeams" class="btn btn-secondary">Back</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('addUser').addEventListener('click', function () {
+            moveSelected('#availableUsers', '#teamUsers', true);
+        });
+
+        document.getElementById('removeUser').addEventListener('click', function () {
+            moveSelected('#teamUsers', '#availableUsers', false);
+        });
+
+        function moveSelected(from, to, isAdding) {
+            const selectedOptions = document.querySelectorAll(from + ' option:checked');
+            const target = document.querySelector(to);
+
+            selectedOptions.forEach(option => {
+                target.appendChild(option);
+
+                const username = option.value;
+                const teamId = document.getElementById('teamId').value;
+
+                fetch(`/Teams/${isAdding ? 'add-user' : 'remove-user'}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ TeamId: teamId, Username: username })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        }
+
+        document.querySelector('form').addEventListener('submit', function () {
+            document.querySelectorAll('#teamUsers option').forEach(option => option.selected = true);
+        });
+    </script>
+}

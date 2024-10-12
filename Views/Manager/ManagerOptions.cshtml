@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Welcome!";
+}
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .btn-custom {
+            font-size: 1.2rem;
+            padding: 15px;
+            border-radius: 0.5rem;
+        }
+
+        .header-title {
+            margin-bottom: 2rem;
+        }
+
+        .mt-custom {
+            margin-top: 5rem;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="logout-btn">
+            <form asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+        <h1 class="text-center header-title">@ViewData["Title"]</h1>
+
+        <div class="row justify-content-center mt-custom">
+            <div class="col-md-4">
+                <div class="d-grid gap-2">
+                    <a href="/Manager/view-projects" class="btn btn-primary btn-custom">Projects</a>
+                    <a href="/Teams" class="btn btn-primary btn-custom">Teams</a>
+                    <a href="/Users" class="btn btn-primary btn-custom">Employees</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

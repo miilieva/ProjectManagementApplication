@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Projects";
+}
+
+<div class="container mt-5">
+    <div class="logout-btn position-absolute" style="top: 20px; right: 20px;">
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
+    <h2 class="text-center mb-4">Projects</h2>
+
+    <div class="table-responsive mb-5">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Project ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Team ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="projects-body">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Add Comment</h2>
+        <form id="add-comment-form">
+            <div class="form-group">
+                <label for="project-id">Select Project</label>
+                <select id="project-id" class="form-control" required>
+                    <option value="" disabled selected>Select a project</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comment-content">Comment</label>
+                <textarea id="comment-content" class="form-control" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add Comment</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/Employee/projects', {
+                    method: 'GET'
+                });
+
+                if (response.ok) {
+                    const projects = await response.json();
+                    const projectsBody = document.getElementById('projects-body');
+                    projectsBody.innerHTML = projects.map(project => `
+                                <tr>
+                                    <td>${project.projectId}</td>
+                                    <td>${project.name}</td>
+                                    <td>${project.description}</td>
+                                    <td>${new Date(project.startDate).toLocaleDateString()}</td>
+                                    <td>${new Date(project.endDate).toLocaleDateString()}</td>
+                                    <td>${project.teamId}</td>
+                                    <td>
+                                        <a href="/Employee/view-comments/${project.projectId}" class="btn btn-info btn-sm">View Comments</a>
+                                    </td>
+                                </tr>
+                            `).join('');
+                } else {
+                    console.error('Failed to load projects:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+            }
+
+            try {
+                const response = await fetch('/Employee/assigned-projects', {
+                    method: 'GET'
+                });
+
+                if (response.ok) {
+                    const projects = await response.json();
+                    const projectSelect = document.getElementById('project-id');
+                    projectSelect.innerHTML = projects.map(project => `
+                                <option value="${project.projectId}">${project.name}</option>
+                            `).join('');
+                } else {
+                    console.error('Failed to load assigned projects:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching assigned projects:', error);
+            }
+
+            const addCommentForm = document.getElementById('add-comment-form');
+
+            addCommentForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const projectId = document.getElementById('project-id').value;
+                const content = document.getElementById('comment-content').value;
+
+                try {
+                    const response = await fetch('/Employee/add-comment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ projectId, content })
+                    });
+
+                    if (response.ok) {
+                        const comment = await response.json();
+                        alert('Comment added successfully!');
+                        addCommentForm.reset(); 
+                    } else {
+                        console.error('Failed to add comment:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error adding comment:', error);
+                }
+            });
+        });
+    </script>
+}

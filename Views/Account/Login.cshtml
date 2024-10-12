@@ -1,0 +1,38 @@
+﻿@model ProjectManagement_Mirela.Models.Login
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg" style="width: 400px;">
+        <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+        @if (ViewData.ModelState.ErrorCount > 0)
+        {
+            <div class="alert alert-danger text-center">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+        }
+        <form method="post" asp-action="Login" asp-controller="Account" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center mt-4">
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

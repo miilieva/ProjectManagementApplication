@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ProjectManagement_Mirela.Models.Comment>
+
+<div class="container">
+    <h1>Коментари по Проект</h1>
+
+    <ul class="list-group">
+        @foreach (var comment in Model)
+        {
+            <li class="list-group-item">
+                <strong>@comment.Employee.UserName</strong> (време: @comment.CreatedAt):<br />
+                @comment.Content
+            </li>
+        }
+    </ul>
+
+    <div class="mt-3">
+        <a href="/Projects" class="btn btn-secondary">Назад</a>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ProjectManagement_Mirela.Controllers.AccountController">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABQAAAAAAAAAAgAAAAAAgIQABAAAAAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Controllers.EmployeeController">
+    <Position X="6" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAIAAAABABAACAAAAAAAAAACAAAAACAAAAAAAA=</HashCode>
+      <FileName>Controllers\EmployeeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Controllers.ManagerController">
+    <Position X="8.25" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAABAAAABABAAAAAAAAAAAAACAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Controllers\ManagerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Controllers.ProjectsController">
+    <Position X="0.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAABBAAAAAAAAAAAAAEAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProjectController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Controllers.TeamsController">
+    <Position X="12.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAABIAEAAAIAAAAAAEAAkAAAQAAAAAAAAA=</HashCode>
+      <FileName>Controllers\TeamController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Controllers.UsersController">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAABAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Models.Team">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQCCAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\Team.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Models.Employee">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Models.Project">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQiBAAAAAAAEAAAAEAAAAA=</HashCode>
+      <FileName>Models\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Models.Register">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Register.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Models.Login">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectManagement_Mirela.Models.Comment">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAACAACAAADAAAAAAgAAAAAAACAAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
